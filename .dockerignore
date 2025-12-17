@@ -1,4 +1,3 @@
-# Dependencies
 node_modules/
 __pycache__/
 *.pyc
@@ -46,6 +45,7 @@ Packages/
 .idea/
 *.swp
 *.swo
+*~
 .DS_Store
 *.user
 *.userprefs
@@ -88,89 +88,14 @@ coverage/
 cypress/videos/
 cypress/screenshots/
 
-# Database
-*.db
-*.db-journal
+# Docker specific
+Dockerfile*
+.dockerignore
+*.dockerfile
+.dockerfile
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-venv.bak/
-env.bak/
-.env
-.venv
-*.env
-*.swp
-*.swo
-*~
-.DS_Store?
-*.log
-.env*
-
-# Mac
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon?
-._*
-.Spotlight-V100
-.Trashes
-.DocumentRevisions-V100
-.FBCIndex
-.savedState
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-.com.apple.FinderInfo
-.pytest_cache
-.coverage
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-.git/info/attributes
-.gitattributes
-.pytest_cache/
-.pytest/
-.hypothesis/
-.coverage.*
-.pyup.yml
-aiohttp_*
-uvloop_*
-cchardet_*
-
-# Windows
-Thumbs.db
-ehthumbs.db
-*:2e*
-*.DS_Store
-Desktop.ini
-$RECYCLE.BIN/
-*.sublime-workspace
-*.suo
-*.user
-.vs/
-.vscode/
-.vscode-test/
-
-# Linux
-*~
-.DS_Store
-.directory
-*.directory
-*.tmp
-*.bak
-*.swp
-
-# Docusaurus
-.docusaurus/
-.cache/
-.outline/
-docs/core/
+# Git
+.git/
 
 # Backend
 backend/__pycache__/
@@ -196,8 +121,8 @@ backend/build/
 frontend/node_modules/
 frontend/build/
 frontend/coverage/
-frontend/.env*
-frontend/.env.local
+*.env*
+*.env.local
 frontend/.env.development.local
 frontend/.env.test.local
 frontend/.env.production.local

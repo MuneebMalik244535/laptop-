@@ -291,6 +291,25 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
+
+  // Add custom root component to include chatbot across all pages
+  themes: ['@docusaurus/theme-classic'],
+  plugins: [
+    async function myPlugin(context, options) {
+      return {
+        name: 'docusaurus-plugin-chatbot',
+        configureWebpack(config, isServer, utils) {
+          return {
+            resolve: {
+              alias: {
+                path: require.resolve('path-browserify'),
+              },
+            },
+          };
+        },
+      };
+    },
+  ],
 };
 
 export default config;

@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: Docusaurus RAG Chatbot API
+  description: REST API for the Docusaurus RAG Chatbot Integration
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Local server
+paths:
+  /query:
+    post:
+      summary: Submit a question to the chatbot and get an answer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: The user's question
+                  example: "What is the main concept of Chapter 3?"
+                context:
+                  type: string
+                  description: Optional context from selected text
+                  example: "Chapter 3 discusses the implementation details of the RAG system."
+              required:
+                - query
+      responses:
+        '200':
+          description: Successful response with answer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    description: The generated answer based on book content
+                    example: "Chapter 3 explains that the RAG system combines retrieval with generation to provide accurate answers based on the book's content."
+                  sources:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        chapter:
+                          type: string
+                          description: The chapter where the information was found
+                        section:
+                          type: string
+                          description: The specific section within the chapter
+                  confidence:
+                    type: number
+                    description: Confidence score of the answer (0-1)
+                    example: 0.95
+        '400':
+          description: Bad request - missing required parameters
+        '500':
+          description: Internal server error
+  /select-text:
+    post:
+      summary: Process selected text for context in subsequent queries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                selected_text:
+                  type: string
+                  description: The text selected by the user
+                  example: "The implementation of the RAG pipeline involves text preprocessing, vector search, context building, and chat completion."
+              required:
+                - selected_text
+      responses:
+        '200':
+          description: Successfully processed selected text
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+                    example: "Selected text processed successfully"
+        '400':
+          description: Bad request - missing required parameters
+        '500':
+          description: Internal server error
+  /health:
+    get:
+      summary: Check if the service is operational
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Health status
+                    example: "healthy"
+                  timestamp:
+                    type: string
+                    format: date-time
+                    description: Current timestamp
+                  services:
+                    type: object
+                    properties:
+                      qdrant:
+                        type: string
+                        description: Qdrant service status
+                        example: "connected"
+                      neon:
+                        type: string
+                        description: Neon Postgres service status
+                        example: "connected"
+                      openai:
+                        type: string
+                        description: OpenAI service status
+                        example: "connected"
+        '500':
+          description: Service is unhealthy
